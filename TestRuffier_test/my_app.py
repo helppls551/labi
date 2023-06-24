@@ -9,6 +9,7 @@ from PyQt5.QtWidgets import (
 from instr import *
 from second_win import *
  
+     
 class MainWin(QWidget):
     def __init__(self):
         ''' окно, в котором располагается приветствие '''
@@ -28,33 +29,19 @@ class MainWin(QWidget):
     
     def initUI(self):
         ''' создаёт графические элементы '''
-        v_line = QVBoxLayout()
-        hello = QLabel(txt_hello)
-        text = QLabel(txt_instruction)
-        self.btn = QPushButton(txt_next)
-        v_line.addWidget(hello,alignment=Qt.AlignLeft)
-        v_line.addWidget(text,alignment=Qt.AlignLeft)
-        v_line.addWidget(self.btn,alignment=Qt.AlignCenter)
-        self.setLayout(v_line)
+        pass
     
     def next_click(self):
-        self.hide()
-        self.fw = TestWin()
- 
+        pass
     
     def connects(self):
-        self.btn.clicked.connect(self.next_click)
+        pass
     
-    '''устанавливает, как будет выглядеть окно (надпись, размер, место)'''
+    ''' устанавливает, как будет выглядеть окно (надпись, размер, место) '''
     def set_appear(self):
-        self.setWindowTitle(txt_title)
-        self.resize(win_width,win_height)
-        self.move(win_x,win_y)
-
+        pass
  
 app = QApplication([])
 mw = MainWin()
-
-
 app.exec_()
  
