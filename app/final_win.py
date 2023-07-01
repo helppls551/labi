@@ -7,6 +7,8 @@ from PyQt5.QtWidgets import (
         QPushButton, QLabel, QListWidget, QLineEdit)
       
 from instr import *
+import second_win
+import my_app_old
  
 class FinalWin(QWidget):
     def __init__(self, exp):
@@ -21,6 +23,8 @@ class FinalWin(QWidget):
     
         #устанавливает, как будет выглядеть окно (надпись, размер, место)
         self.set_appear()
+    
+        self.connects()
         
         # старт:
         self.show()
@@ -90,14 +94,24 @@ class FinalWin(QWidget):
         ''' создаёт графические элементы '''
         self.work_text = QLabel(txt_workheart + self.results())
         self.index_text = QLabel(txt_index + str(self.index))
+        self.btn_text = QPushButton('Назад',self)
     
         self.layout_line = QVBoxLayout()
         self.layout_line.addWidget(self.index_text, alignment = Qt.AlignCenter)
-        self.layout_line.addWidget(self.work_text, alignment = Qt.AlignCenter)        
+        self.layout_line.addWidget(self.work_text, alignment = Qt.AlignCenter)
+        self.layout_line.addWidget(self.btn_text,alignment=Qt.AlignCenter)        
         self.setLayout(self.layout_line)
+
+    def connects(self):
+        self.btn_text.click.connect()
     
     ''' устанавливает, как будет выглядеть окно (надпись, размер, место) '''
     def set_appear(self):
         self.setWindowTitle(txt_finalwin)
         self.resize(win_width, win_height)
         self.move(win_x, win_y)
+    def down_click(self):
+        self.hide()
+        second_win.TestWin.hide()
+    def revise_click():
+        my_app_old.MainWin.show()

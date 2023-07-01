@@ -44,6 +44,7 @@ class TestWin(QWidget):
         self.btn_test1 = QPushButton(txt_starttest1,self)
         self.btn_text2  = QPushButton(txt_starttest2,self)
         self.btn_text3 = QPushButton(txt_starttest3,self)
+        self.btn_down = QPushButton('Назад',self)
 
         self.text_name = QLabel(txt_name)
         self.text_age = QLabel(txt_age)
@@ -76,17 +77,20 @@ class TestWin(QWidget):
         self.l_line.addWidget(self.line_test2,alignment= Qt.AlignLeft)
         self.l_line.addWidget(self.line_test3,alignment= Qt.AlignLeft)
         self.l_line.addWidget(self.btn_next,alignment= Qt.AlignCenter)
+        self.l_line.addWidget(self.btn_down,alignment=Qt.AlignCenter)
         self.h_line.addLayout(self.l_line)
         self.h_line.addLayout(self.r_line)
         self.setLayout(self.h_line)
+    def dowm_click(self):
+        self.hide
+        FinalWin.revise_click()
     
     def next_click(self):
         self.hide()
         self.exp = Experiment(int(self.line_age.text()),
         self.line_test1.text(),self.line_test2.text(),self.line_test3.text())
         self.fw = FinalWin(self.exp)
-        
-        self.fw = FinalWin(self.exp)
+
     def timer_test(self):
         global time
         time = QTime(0,0,15)
@@ -140,3 +144,4 @@ class TestWin(QWidget):
         self.btn_test1.clicked.connect(self.timer_test)
         self.btn_text2.clicked.connect(self.timer_sits)
         self.btn_text3.clicked.connect(self.timer_final)
+        self.btn_down.clicked.connect(self.down_click)
