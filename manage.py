@@ -18,6 +18,8 @@ class AnimatedButton (Button):
         start_pos_hint = self.pos_hint
         start_c = self.color
         size = self.font_size
+        animate = Animation(background_color = (0,0,1,1), color = (1,1,0,1),
+        font_size = 18, duration = 1.5)
 
         animate = animate + Animation(background_color=(1,1,0,1),duration = 1.5)
         animate = animate + Animation(pos_hint = {'center_x': 1.1},background_color = (0,0,1,1))
@@ -31,7 +33,7 @@ class AnimatedButton (Button):
 
     def start_animation(self):
         self.animate.start(self)
-        App.convert()
+        app.convert()
 class MyApp(App):
     def build(self):
         self.layout = BoxLayout(orientation ='vertical')
@@ -44,16 +46,20 @@ class MyApp(App):
         self.lefttext = Label(text = 'Конвертация с')
         self.btnUSDwith = Button(text = 'USD')
         self.btnRUBwith = Button(text = 'RUB')
+        self.btnEURwith = Button(text = 'EUR')
         self.btngroup1 = BoxLayout(orientation = 'vertical')
         self.btngroup1.add_widget(self.lefttext)
         self.btngroup1.add_widget(self.btnUSDwith)
         self.btngroup1.add_widget(self.btnRUBwith)
+        self.btngroup1.add_widget(self.btnEURwith)
         self.btnUSDwith.on_press = self.usdwith
         self.btnRUBwith.on_press = self.rubwith
+        self.btnEURto.on_press = self.eurwith
 
         self.righttext = Label(text = 'Конвертация в')
         self.btnRUBto =  Button(text = 'RUB')
         self.btnUSDto = Button(text = 'USD')
+        self.btnEURto = Button(text = 'EUR')
         self.btngroup2 = BoxLayout(orientation = 'vertical')
         self.btngroup2.add_widget(self.righttext)
         self.btngroup2.add_widget(self.btnRUBto)
@@ -79,30 +85,38 @@ class MyApp(App):
         if self.write_valute.text  =='': 
             self.write_valute.text = '0'
         if self.withconvert == 'USD' and self.toconvert == 'RUB':
-            self.t_text.text = str(54.20 * float(self.write_valute.text)) + 'RUB'
+            self.t_text.text = str(94.20 * float(self.write_valute.text)) + 'RUB'
         elif self.withconvert == 'USD' and self.toconvert == 'USD':
             self.t_text.text = str(self.write_valute.text) + 'USD'
         elif self.withconvert == 'RUB' and self.toconvert == 'RUB':
             self.t_text.text = str(self.write_valute.text) + 'RUB'
+        elif self.withconvert == 'EUR' and self.toconvert == 'USD':
+            self.t_text.text = str(1.09 * float(self.write_valute.text)) + 'USD'
+        elif self.withconvert == 'EUR' and self.toconvert == 'RUB':
+            self.t_text.text = str(101.48 * float(self.write_valute.text)) + 'RUB'
+        elif self.withconvert == 'USD' and self.toconvert == 'EUR':
+            self.t_text.text = str(0.92 * float(self.write_valute.text)) + 'EUR'
         else:
             popup = Popup(title = 'Инструкция!!!', content = Label(text = txt),
             size_hint = (None,None), size = (500,500), pos_hint = {'center_x': 0.5,'center_y': 0.5})
             popup.open()  
     def usdwith(self):
         self.withconvert = 'USD'
-        print('Конвертация с:',self.withconvert)
     
     def rubwith(self):
         self.withconvert ='RUB'
-        print('Конвертация с:',self.withconvert)
+    
+    def eurwith(self):
+        self.withconvert = 'EUR'
     
     def usdto(self):
         self.toconvert = 'USD'
-        print('Конвертация в:',self.toconvert)
     
     def rubto(self):
         self.toconvert = 'RUB'
-        print('Конвертация в :',self.toconvert)
+
+    def eurto(self):
+        self.toconvert = 'EUR'
 
 txt = '''Выберите конвертируемую валюту в левой стороне,
 в правой стороне выберите валюту, которую хотите
