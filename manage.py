@@ -23,10 +23,12 @@ class AnimatedButton (Button):
         animate = animate + Animation(pos_hint = {'center_x': 1.1},background_color = (0,0,1,1))
         animate = animate + Animation(pos_hint = {'center_x': 0.1},background_color = (0,0,1,1),
         duration = 0.5)
+
         back = Animation(background_color = start_color,size_hint = start_size_h,pos_hint = start_pos_hint,
         color = start_c, font_size = size)
 
         self.animate = animate +back
+
     def start_animation(self):
         self.animate.start(self)
         App.convert()
@@ -42,4 +44,70 @@ class MyApp(App):
         self.lefttext = Label(text = 'Конвертация с')
         self.btnUSDwith = Button(text = 'USD')
         self.btnRUBwith = Button(text = 'RUB')
-        self.btngroupl = BoxLayout(orientation = 'vertical')
+        self.btngroup1 = BoxLayout(orientation = 'vertical')
+        self.btngroup1.add_widget(self.lefttext)
+        self.btngroup1.add_widget(self.btnUSDwith)
+        self.btngroup1.add_widget(self.btnRUBwith)
+        self.btnUSDwith.on_press = self.usdwith
+        self.btnRUBwith.on_press = self.rubwith
+
+        self.righttext = Label(text = 'Конвертация в')
+        self.btnRUBto =  Button(text = 'RUB')
+        self.btnUSDto = Button(text = 'USD')
+        self.btngroup2 = BoxLayout(orientation = 'vertical')
+        self.btngroup2.add_widget(self.righttext)
+        self.btngroup2.add_widget(self.btnRUBto)
+        self.btngroup2.add_widget(self.btnUSDto)
+        self.btnUSDto.on_press = self.usdto
+        self.btnRUBto.on_press = self.rubto
+        self.toconvert = ''
+
+        self.groupMain.add_widget(self.btngroup1)
+        self.groupMain.add_widget(self.btngroup2)
+
+        self.layout.add_widget(self.groupMain)
+        
+        self.write_valute = TextInput(size_hint = (1,0.2))
+        self.layout.add_widget(self.write_valute)
+        self.btn = AnimatedButton(text = 'Конвертация', size_hint=(0.3, 0.2),pos_hint = {'center_x': 0.5})
+        self.layout.add_widget(self.btn)
+        self.btn.on_press = self.btn.start_animation
+
+        return self.layout
+    
+    def convert(self):
+        if self.write_valute.text  =='': 
+            self.write_valute.text = '0'
+        if self.withconvert == 'USD' and self.toconvert == 'RUB':
+            self.t_text.text = str(54.20 * float(self.write_valute.text)) + 'RUB'
+        elif self.withconvert == 'USD' and self.toconvert == 'USD':
+            self.t_text.text = str(self.write_valute.text) + 'USD'
+        elif self.withconvert == 'RUB' and self.toconvert == 'RUB':
+            self.t_text.text = str(self.write_valute.text) + 'RUB'
+        else:
+            popup = Popup(title = 'Инструкция!!!', content = Label(text = txt),
+            size_hint = (None,None), size = (500,500), pos_hint = {'center_x': 0.5,'center_y': 0.5})
+            popup.open()  
+    def usdwith(self):
+        self.withconvert = 'USD'
+        print('Конвертация с:',self.withconvert)
+    
+    def rubwith(self):
+        self.withconvert ='RUB'
+        print('Конвертация с:',self.withconvert)
+    
+    def usdto(self):
+        self.toconvert = 'USD'
+        print('Конвертация в:',self.toconvert)
+    
+    def rubto(self):
+        self.toconvert = 'RUB'
+        print('Конвертация в :',self.toconvert)
+
+txt = '''Выберите конвертируемую валюту в левой стороне,
+в правой стороне выберите валюту, которую хотите
+получить, затем в текстовое поле напишите количество
+и нажмите кнопку "Конвертация"!
+'''
+app = MyApp()
+app.run()
