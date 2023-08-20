@@ -103,42 +103,36 @@ class MyApp(App):
             size_hint = (None,None), size = (500,500), pos_hint = {'center_x': 0.5,'center_y': 0.5})
             popup.open()
             self.lab = Label(text = f'Конвертаций:{self.conv}:)',size_hint=(0.3, 0.2),pos_hint = {'center_x': 0.5})
-        elif self.withconvert == 'USD' and self.toconvert == 'RUB':
-            self.t_text.text = str(94.20 * float(self.write_valute.text)) + 'RUB'
+        else:
             self.conv += 1
-            self.lab = Label(text = f'Конвертаций:{self.conv}',size_hint=(0.3, 0.2),pos_hint = {'center_x': 0.5})
+            self.lab.text =  f'Конвертаций:{str(self.conv)}:)'
+        if self.withconvert == 'USD' and self.toconvert == 'RUB':
+            self.t_text.text = str(94.20 * float(self.write_valute.text)) + 'RUB'
+            
         elif self.withconvert == 'USD' and self.toconvert == 'USD':
             self.t_text.text = str(self.write_valute.text) + 'USD'
-            self.conv += 1
-            self.lab = Label(text = f'Конвертаций:{self.conv}',size_hint=(0.3, 0.2),pos_hint = {'center_x': 0.5})
+            
         elif self.withconvert == 'RUB' and self.toconvert == 'USD':
             self.t_text.text = str(0.01 *float(self.write_valute.text)) +'USD'
-            self.conv += 1
-            self.lab = Label(text = f'Конвертаций:{self.conv}',size_hint=(0.3, 0.2),pos_hint = {'center_x': 0.5})
+            
         elif self.withconvert == 'RUB' and self.toconvert == 'RUB':
             self.t_text.text = str(self.write_valute.text) + 'RUB'
-            self.conv += 1
-            self.lab = Label(text = f'Конвертаций:{self.conv}',size_hint=(0.3, 0.2),pos_hint = {'center_x': 0.5})
+            
         elif self.withconvert == 'EUR' and self.toconvert == 'USD':
             self.t_text.text = str(1.09 * float(self.write_valute.text)) + 'USD'
-            self.conv += 1
-            self.lab = Label(text = f'Конвертаций:{self.conv}',size_hint=(0.3, 0.2),pos_hint = {'center_x': 0.5})
+            
         elif self.withconvert == 'EUR' and self.toconvert == 'RUB':
             self.t_text.text = str(101.48 * float(self.write_valute.text)) + 'RUB'
-            self.conv += 1
-            self.lab = Label(text = f'Конвертаций:{self.conv}',size_hint=(0.3, 0.2),pos_hint = {'center_x': 0.5})
+            
         elif self.withconvert == 'USD' and self.toconvert == 'EUR':
             self.t_text.text = str(0.92 * float(self.write_valute.text)) + 'EUR'
-            self.conv += 1
-            self.lab = Label(text = f'Конвертаций:{self.conv}',size_hint=(0.3, 0.2),pos_hint = {'center_x': 0.5})
+            
         elif self.withconvert == 'RUB' and self.toconvert == 'EUR':
             self.t_text.text == str(0.009 * float(self.write_valute.text)) + ' EUR'
-            self.conv += 1
-            self.lab = Label(text = f'Конвертаций:{self.conv}',size_hint=(0.3, 0.2),pos_hint = {'center_x': 0.5})
+            
         elif self.withconvert == 'EUR' and self.toconvert == 'EUR':
             self.t_text.text = str(self.write_valute.text) + 'EUR'
-            self.conv += 1
-            self.lab = Label(text = f'Конвертаций:{self.conv}',size_hint=(0.3, 0.2),pos_hint = {'center_x': 0.5})
+            
         else:
             popup = Popup(title = 'Инструкция!!!', content = Label(text = txt),
             size_hint = (None,None), size = (500,500), pos_hint = {'center_x': 0.5,'center_y': 0.5})
