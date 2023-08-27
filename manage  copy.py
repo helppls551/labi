@@ -102,10 +102,10 @@ class MyApp(App):
             popup = Popup(title = 'пасахалка', content = Label(text = 'пасхалочка'),
             size_hint = (None,None), size = (500,500), pos_hint = {'center_x': 0.5,'center_y': 0.5})
             popup.open()
-            self.lab = Label(text = f'Конвертаций:{self.conv}:)',size_hint=(0.3, 0.2),pos_hint = {'center_x': 0.5})
+            self.lab.text =  f'Конвертаций:{str(self.conv)}:)'
         else:
             self.conv += 1
-            self.lab.text =  f'Конвертаций:{str(self.conv)}:)'
+            self.lab.text =  f'Конвертаций:{str(self.conv)}'
         if self.withconvert == 'USD' and self.toconvert == 'RUB':
             self.t_text.text = str(94.20 * float(self.write_valute.text)) + 'RUB'
             
