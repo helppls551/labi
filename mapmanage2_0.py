@@ -30,7 +30,6 @@ class Mapmanager():
         self.startNew()
 
     def pot(self,x,y,z):
-        self.clear()
         self.addBlock((x,y,0))
         self.addBlock((x,y,z))
 
@@ -42,10 +41,12 @@ class Mapmanager():
                 x = 0
                 line = line.split()
                 for z in line:
-                    for z0 in range(int(z)+1):
-                        if z == ' ':
-                            self.pot(x,y,abs(z0))
-                        else:
-                            self.addBlock((x,y,z0))    
+                    if z == '-':
+                        self.addBlock((x,y,0))
+                        self.addBlock((x,y,z1))
+                    else:
+                        for z0 in range(int(z)+1):
+                            self.addBlock((x,y,z0))
+                            z1 = z0
                     x += 1
                 y += 1 
