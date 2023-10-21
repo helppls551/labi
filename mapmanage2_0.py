@@ -50,3 +50,4 @@ class Mapmanager():
                             z1 = z0
                     x += 1
                 y += 1 
+        return x, y

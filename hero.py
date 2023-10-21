@@ -18,7 +18,7 @@ class Hero():
         self.mode = True #режим прохождения сквозь всё
         self.hero = loader.loadModel('smiley')
         self.hero.setColor(1,0.5,0)
-        self.hero.setSclae(0.3)
+        self.hero.setScale(0.3)
         self.hero.reparentTo(render)
         self.cameraBind()
         self.accept_events()
@@ -27,7 +27,7 @@ class Hero():
         base.disableMouse()
         base.camera.setH(180)
         base.camera.reparentTo(self.hero)
-        base.camerPos(0,0,1.5)
+        base.camer.setPos(0,0,1.5)
         self.cameraOn = True
 
     def cameraUp(self):
@@ -77,15 +77,15 @@ class Hero():
             return(1,-1)
         elif angle<= 110:
             return(1,1)
-        elif angle()<=155:
+        elif angle<=155:
             return(1,1)
-        elif angle()<= 200:
+        elif angle<= 200:
             return(0,1)
-        elif angle()<= 245:
+        elif angle<= 245:
             return(-1,1)
-        elif angle()<=290:
+        elif angle<=290:
             return(-1,1)
-        elif angle()<= 335:
+        elif angle<= 335:
             return(-1,-1)
         else:
             return(0,-1)
