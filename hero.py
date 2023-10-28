@@ -12,11 +12,21 @@ key_down = 'q'
 key_turn_left = 'n'
 key_turn_right = 'm'
 
+key_build= 'b'
+key_destroy ='v'
+
+key_savemap = 'k'
+key_loadmap = 'l'
+key_p ='p'
+
 class Hero():
-    def __init__(Self,pos,land):
+    def __init__(self,pos,land):
         self.land = land
         self.mode = True #режим прохождения сквозь всё
+        self.textOn = True
+        self.texture = 0
         self.hero = loader.loadModel('smiley')
+        self.hero.setTexture(loader.loadTexture('wood.png'))
         self.hero.setColor(1,0.5,0)
         self.hero.setScale(0.3)
         self.hero.reparentTo(render)
@@ -27,12 +37,13 @@ class Hero():
         base.disableMouse()
         base.camera.setH(180)
         base.camera.reparentTo(self.hero)
-        base.camer.setPos(0,0,1.5)
+        base.camera.setPos(0,0,1.5)
+        base.camera.setP(-15)
         self.cameraOn = True
 
     def cameraUp(self):
         pos = self.hero.getPos()
-        base.mouseInterfaceNode.SetPos(-pos[0],-pos[1],-pos[2]-3)
+        base.mouseInterfaceNode.setPos(-pos[0],-pos[1],-pos[2]-3)
         base.camera.reparentTo
         base.enableMouse()
         self.cameraOn = False
@@ -69,6 +80,8 @@ class Hero():
     def move_to(self,angle):
         if self.mode:
             self.just_move(angle)
+        else:
+            self.try_move(angle)
     
     def check_dir(self,angle):
         if angle >= 0 and angle <= 20:
@@ -76,15 +89,15 @@ class Hero():
         elif angle<= 65:
             return(1,-1)
         elif angle<= 110:
-            return(1,1)
-        elif angle<=155:
+            return(1,0)
+        elif angle<= 155:
             return(1,1)
         elif angle<= 200:
             return(0,1)
         elif angle<= 245:
             return(-1,1)
         elif angle<=290:
-            return(-1,1)
+            return(-1,0)
         elif angle<= 335:
             return(-1,-1)
         else:
@@ -105,6 +118,56 @@ class Hero():
         angle = (self.hero.getH() -90) %360
         self.move_to(angle)
     
+    def changeMode(self):
+        if self.mode:
+            self.mode = False
+        else:
+            self.mode =True
+
+    def try_move(self,angle):
+        pos = self.look_at(angle)
+        if self.land.isEmpty(pos):
+            pos = self.land.findHighestEmpty(pos)
+            self.hero.setPos(pos)
+        else:
+            pos = pos[0],pos[1],pos[2]+1
+            if self.land.isEmpty(pos):
+                self.hero.setPos(pos)
+
+    def up(self):
+        if self.mode:
+            self.hero.setZ(self.hero.getZ()+1)
+    
+    def down(self):
+        if self.mode and self.hero.getZ()> 1:
+            self.hero.setZ(self.hero.getZ() - 1)
+    
+    def t_texure(self):
+        if self.textOn:
+            self.textOn = False
+            self.texture =1
+        else:
+            self.textOn = True
+            self.texture = 0
+        return self.texture
+
+    def build(self):
+        angle = self.hero.getH() % 360
+        pos = self.look_at(angle)
+        if self.mode:
+            self.land.addBlock(pos,self.texture)
+        else:
+            self.land.buildBlock(pos,self.texture)
+
+    def destroy(self):
+        angle =self.hero.getH() % 360
+        pos = self.look_at(angle)    
+        if self.mode:
+            self.land.delBlock(pos)
+        else:
+            self.land.delBlockFrom(pos)
+    
+        
     def accept_events(self):
         base.accept(key_turn_left,self.turn_left)
         base.accept(key_turn_left + 'repeat',self.turn_left)
@@ -119,6 +182,19 @@ class Hero():
         base.accept(key_right,self.right)
         base.accept(key_right+ 'repeat',self.right)
         base.accept(key_switch_camera,self.changeView)
+        base.accept(key_switch_mode,self.changeMode)
+        base.accept(key_up,self.up)
+        base.accept(key_up + '-repeat',self.up)
+        base.accept(key_down,self.down)
+        base.accept(key_down + '-repeat',self.down)
+        base.accept(key_build,self.build)
+        base.accept(key_destroy,self.destroy)
+        base.accept(key_savemap,self.land.saveMap)
+        base.accept(key_loadmap,self.land.loadMap)
+        base.accept(key_p,self.t_texure)
+
+
+
         
         
 
