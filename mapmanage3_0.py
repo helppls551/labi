@@ -1,7 +1,10 @@
+import pickle
+import random as rd
+
 class Mapmanager():
     def __init__(self):
-        self.model = 'block'
-        self.texture = 'blcok.png'
+        self.model = 'block.egg'
+        self.textures = ['block.png','wppd.png']
         self.colors=[
             (0.2,0.2,0.35,1),
             (0.2,0.5,0.2,1),
@@ -14,18 +17,19 @@ class Mapmanager():
         self.land = render.attachNewNode('Land')
     
     def getColor(self,z):
-        if z <len(self.colors):
-            return self.color[z]
-        else:
-            return self.colors[len(self.colors)-1]
+        # if z <len(self.colors):
+        #     return self.colors[z]
+        # else:
+        #     return self.colors[len(self.colors)-1]
+        return self.colors[rd.randint(0,3)] 
     
     
-    def addBlock(self,position):
+    def addBlock(self,position,text = 0):
         self.block = loader.loadModel(self.model)
         self.texture = self.textures[text]
         self.block.setTexture(loader.loadTexture(self.texture))
         self.block.setPos(position)
-        self.color = self.getColor(int.position[2])
+        self.color = self.getColor(int(position[2]))
         self.block.setColor(self.color)
         self.block.setTag('at',str(position))
         self.block.reparentTo(self.land)
@@ -57,7 +61,7 @@ class Mapmanager():
         if blocks:
             return False
         else:
-            True
+            return True
     
     def findHighestEmpty(self,pos):
         x,y,z =pos
@@ -73,11 +77,15 @@ class Mapmanager():
             self.addBlock(new,text)
     
     def delBlock(self,position):
+        blocks = self.findBlocks(position)
+        for block in blocks:
+            block.removeNode()
+
+    def delBlockFrom(self, position):
         x,y,z = self.findHighestEmpty(position)
         pos = x,y,z-1
         for block in self.findBlocks(pos):
-                block.removeNode()
-    
+            block.removeNode()    
     def saveMap(self):
         blocks = self.land.getChildren()
         with open('my_map.dat','wb') as fout:
@@ -87,9 +95,9 @@ class Mapmanager():
             pos = (int(x),int(y),int(z))
             pickle.dump(pos,fout)
             if 'wood.png' in str(block.getTexture()):
-                pickle.dump(object:1,fout)
+                pickle.dump(1,fout)
             else:
-                pickle.dump(object:1,fout)
+                pickle.dump(1,fout)
     
     def loadMap(self):
         self.clear()
