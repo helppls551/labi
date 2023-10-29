@@ -1,10 +1,11 @@
 import pickle
+import random as rd
 class Mapmanager():
     """ Управление картой """
     def __init__(self):
         self.model = 'block' # модель кубика лежит в файле block.egg
         # # используются следующие текстуры: 
-        self.texture = 'block.png'          
+        self.texture = 'wood.png'          
         self.colors = [
             (0.2, 0.2, 0.35, 1),
             (0.2, 0.5, 0.2, 1),
@@ -19,11 +20,12 @@ class Mapmanager():
         """создаёт основу для новой карты""" 
         self.land = render.attachNewNode("Land") # узел, к которому привязаны все блоки карты
 
-    def getColor(self, z):
-        if z < len(self.colors):
-            return self.colors[z]
-        else:
-            return self.colors[len(self.colors) - 1]
+    def getColor(self,z):
+        # if z <len(self.colors):
+        #     return self.colors[z]
+        # else:
+        #     return self.colors[len(self.colors)-1]
+        return self.colors[rd.randint(0,3)]
 
     def addBlock(self, position):
         # создаём строительные блоки 
