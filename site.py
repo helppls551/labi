@@ -23,6 +23,8 @@ def statue():
 @app.route('/about')
 def about():
     return render_template('about.html')
-
+@app.route('/all',methods = 'GET')
+def show_article():
+    
 
 app.run(debug=True)

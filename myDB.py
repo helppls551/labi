@@ -14,11 +14,11 @@ def create_table():
     conn,curs = openDB()
     curs.execute('''DROP TABLE IF EXISTS articles''')
     curs.execute('''CREATE TABLE IF NOT EXISTS articles (
-                 id INTEGER PRIMARY KEY
-                 title VARCHAR(60)
-                 intro VARCHAR(300)
+                 id INTEGER PRIMARY KEY,
+                 title VARCHAR(60),
+                 intro VARCHAR(300),
                  text TEXT,
-                 date VARCHAR(40)
+                 date VARCHAR(40),
     )''')
     closeDB(conn)
 
@@ -27,12 +27,13 @@ def show_table():
     curs.execute =('''SELECT * FROM articles''')
     data = curs.fetchall()
     closeDB(conn)
-    return
+    return data
 
 def select_index():
     pass
 
 def create_index(title,intro,text):
+    update_index()
     conn,curs = openDB()
     date = datetime.utcnow()
     curs.execute('''INSERT INTO articles(title,intro,text,date)
@@ -40,7 +41,15 @@ def create_index(title,intro,text):
     closeDB(conn)
 
 def update_index():
-    pass
+    conn,curs = openDB()
+    curs.execute('''CREATE TABLE IF NOT EXISTS articles (
+                 id INTEGER PRIMARY KEY,
+                 title VARCHAR(60),
+                 intro VARCHAR(300),
+                 text TEXT,
+                 date VARCHAR(40)
+    )''')
+    closeDB(conn)
 
 def delete_index():
     pass
