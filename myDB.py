@@ -2,7 +2,7 @@ import sqlite3
 from datetime import datetime
 
 def openDB():
-    conn = sqlite3.connect*('blog.db')
+    conn = sqlite3.connect('blog.db')
     curs = conn.cursor()
     return conn,curs
 
@@ -43,4 +43,4 @@ def update_index():
     pass
 
 def delete_index():
-    passs
+    pass
