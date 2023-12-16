@@ -93,6 +93,112 @@ def create_article_pc6():
         return redirect('/pc6')
     else:
         return render_template('pc6.html')
-
-
+@app.route('/ph1', methods=['POST','GET'])
+def create_article_ph1():
+    if request.method == 'POST':
+        title = request.form['title']
+        price = request.form['price']
+        create_index(title, price)
+        return redirect('/ph1')
+    else:
+        return render_template('phone1.html')
+@app.route('/ph2', methods=['POST','GET'])
+def create_article_ph2():
+    if request.method == 'POST':
+        title = request.form['title']
+        price = request.form['price']
+        create_index(title, price)
+        return redirect('/ph2')
+    else:
+        return render_template('phone2.html')
+@app.route('/ph3', methods=['POST','GET'])
+def create_article_ph3():
+    if request.method == 'POST':
+        title = request.form['title']
+        price = request.form['price']
+        create_index(title, price)
+        return redirect('/ph3')
+    else:
+        return render_template('phone3.html')
+@app.route('/ph4', methods=['POST','GET'])
+def create_article_ph4():
+    if request.method == 'POST':
+        title = request.form['title']
+        price = request.form['price']
+        create_index(title, price)
+        return redirect('/ph4')
+    else:
+        return render_template('phone4.html')
+@app.route('/ph5', methods=['POST','GET'])
+def create_article_ph5():
+    if request.method == 'POST':
+        title = request.form['title']
+        price = request.form['price']
+        create_index(title, price)
+        return redirect('/ph5')
+    else:
+        return render_template('phone5.html')
+@app.route('/ph6', methods=['POST','GET'])
+def create_article_ph6():
+    if request.method == 'POST':
+        title = request.form['title']
+        price = request.form['price']
+        create_index(title, price)
+        return redirect('/ph6')
+    else:
+        return render_template('phone6.html')
+@app.route('/aud1', methods=['POST','GET'])
+def create_article_aud1():
+    if request.method == 'POST':
+        title = request.form['title']
+        price = request.form['price']
+        create_index(title, price)
+        return redirect('/aud1')
+    else:
+        return render_template('audio1.html')
+@app.route('/aud2', methods=['POST','GET'])
+def create_article_aud2():
+    if request.method == 'POST':
+        title = request.form['title']
+        price = request.form['price']
+        create_index(title, price)
+        return redirect('/aud2')
+    else:
+        return render_template('audio2.html')
+@app.route('/aud3', methods=['POST','GET'])
+def create_article_aud3():
+    if request.method == 'POST':
+        title = request.form['title']
+        price = request.form['price']
+        create_index(title, price)
+        return redirect('/aud3')
+    else:
+        return render_template('audio3.html')
+@app.route('/aud4', methods=['POST','GET'])
+def create_article_aud4():
+    if request.method == 'POST':
+        title = request.form['title']
+        price = request.form['price']
+        create_index(title, price)
+        return redirect('/aud4')
+    else:
+        return render_template('audio4.html')
+@app.route('/aud5', methods=['POST','GET'])
+def create_article_aud5():
+    if request.method == 'POST':
+        title = request.form['title']
+        price = request.form['price']
+        create_index(title, price)
+        return redirect('/aud5')
+    else:
+        return render_template('audio5.html')
+@app.route('/aud6', methods=['POST','GET'])
+def create_article_aud6():
+    if request.method == 'POST':
+        title = request.form['title']
+        price = request.form['price']
+        create_index(title, price)
+        return redirect('/aud6')
+    else:
+        return render_template('audio6.html')
 app.run(debug=True)

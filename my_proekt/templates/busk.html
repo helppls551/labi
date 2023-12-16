@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Статьи
+    Okel
 {% endblock %}
 
 {% block content %}
     {% if articles|length > 0 %}
-    <h1>Все статьи</h1>
+    <h1>Ваша корзина:</h1>
         {% for el in  articles%}
             <div class="alert alert-info">
                 <h2>{{ el[1] }}</h2>
