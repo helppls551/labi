@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Статьи
+{% endblock %}
+
+{% block content %}
+    {% if articles|length > 0 %}
+    <h1>Все статьи</h1>
+        {% for el in  articles%}
+            <div class="alert alert-info">
+                <h2>{{ el[1] }}</h2>
+                <p align = 'right'>{{ el[2] }} ₽</p>
+                <p align="right"><a href="/busk/delete({{el[0]}})" class="btn btn-danger">Удалить</a>
+            </div>
+        {% endfor %}
+        <h3 align = "right">{{price[0]}} ₽</h3>
+    {% else %}
+        <h1>Вы ничего не взяли</h1>
+    {% endif %}
+    
+{% endblock %}
